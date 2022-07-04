@@ -1,31 +1,31 @@
--- Department seeds
+-- Department
 INSERT INTO departments (id, name)
-VALUES (1, "Board"),
-       (2, "Sales"),
-       (3, "Engineering"),
-       (4, "Finance"),
-       (5, "Legal");
+VALUES (1, "Executive Officer"),
+       (2, "Finance"),
+       (3, "Operational"),
+       (4, "Technology"),
+       (5, "Marketing");
 
--- Role seeds
+-- Role 
 INSERT INTO roles (department_id, title, salary)
-VALUES (1, "CEO", ),
-       (2, "Sales Lead", 100000),
-       (2, "Salesperson", 80000),
-       (3, "Lead Engineer", 150000),
-       (3, "Software Engineer", 120000),
-       (4, "Accountant Manager", 160000),
-       (4, "Accountant", 125000),
-       (5, "Legal Team Lead", 250000),
-       (5, "Lawyer", 190000);
+VALUES (1, "CEO",2000000 ),
+       (2, "CFO", 1000000),
+       (2, "Business Analyst", 80000),
+       (3, "COO", 1000000),
+       (3, "Project Manager", 200000),
+       (4, "CTO", 1000000),
+       (4, "Software engineer", 250000),
+       (5, "Marketing manager", 180000),
+       (5, "Marketing specialist", 70000);
 
--- Employee seeds
+-- Employee
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ("Tianchou", "Gong", 1, null),
        ("Tjoe", "Gong", 2, 1),
-       ("Kathy", "Kong", 3, 3),
-       ("Ivy", "Gong", 4, 1),
+       ("Ivy", "Kong", 3, 3),
+       ("Kathy", "Kong", 8, 1),
        ("Amy", "Kong", 5, 4), 
-       ("Olivia", "Smith", 6, 1),
-       ("Noah", "Rodriguez", 7, 5),
-       ("Charlotte", "Garcia", 8, 1),
-       ("Elijah", "Miller", 9, 6);
+       ("Olivia", "Smith", 7, 5),
+       ("Noah", "Rodriguez", 6, 1),
+       ("Charlotte", "Garcia", 9, 6),
+       ("Elijah", "Miller", 4, 1);
