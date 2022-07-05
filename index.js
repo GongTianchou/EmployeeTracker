@@ -8,7 +8,7 @@ require('dotenv').config();
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: process.env.DB_PASSWORD,
+    password: "Tc31415926.",
     database: "employeeTracker_db"
 });
 
@@ -122,4 +122,144 @@ const viewAllEmployees = () => {
             console.table(res)
             startPrompt()
         })
+};
+
+
+const addDepartment = () => {
+    figlet("ADD a DEPARTMENT", function(err, res) {
+        if (err) {
+            console.log('Something Went Wrong, Please Try Again');
+            console.dir(err);
+            return;
+        }
+        console.log(res)
+    })
+    inquirer.prompt([{
+        name: "Name",
+        type: "input",
+        message: "What department would you like to add?"
+    }]).then(function(res) {
+        const query = "INSERT INTO departments SET ?";
+        db.query(
+            query, {
+                name: res.Name
+            },
+            function(err) {
+                if (err) throw err
+                console.table(res);
+                startPrompt();
+            }
+        )
+    })
+};
+
+// selectRole function used in add/update employee prompt 
+let roleArr = [];
+const selectRole = () => {
+    const query = "SELECT * FROM roles";
+    db.query(query, function(err, res) {
+        if (err) throw err
+        for (var i = 0; i < res.length; i++) {
+            roleArr.push(res[i].title);
+        }
+    })
+    return roleArr;
+};
+
+let managersArr = [];
+const selectManager = () => {
+    const query = `SELECT first_name, last_name FROM employees WHERE manager_id IS NULL`;
+    db.query(query, function(err, res) {
+        if (err) throw err
+        for (var i = 0; i < res.length; i++) {
+            managersArr.push(res[i].first_name);
+        }
+    })
+    return managersArr;
+};
+
+
+const addRole = () => {
+    figlet("ADD  ROLE", function(err, res) {
+        if (err) {
+            console.log('Something Went Wrong, Please Try Again');
+            console.dir(err);
+            return;
+        }
+        console.log(res)
+    })
+    const query = `SELECT roles.title, roles.salary FROM roles`;
+    db.query(query, function(err, res) {
+        inquirer.prompt([{
+                name: "Title",
+                type: "input",
+                message: "What is the roles Title?"
+            },
+            {
+                name: "Salary",
+                type: "input",
+                message: "What is the Salary?"
+            }
+        ]).then(function(res) {
+            db.query(
+                "INSERT INTO roles SET ?", {
+                    title: res.Title,
+                    salary: res.Salary,
+                },
+                function(err) {
+                    if (err) throw err
+                    console.table(res);
+                    startPrompt();
+                }
+            )
+        });
+    });
+};
+
+
+const addEmployee = () => {
+    figlet("ADD a EMPLOYEE", function(err, res) {
+        if (err) {
+            console.log('Something Went Wrong, Please Try Again');
+            console.dir(err);
+            return;
+        }
+        console.log(res)
+    })
+    inquirer.prompt([{
+            name: "first_name",
+            type: "input",
+            message: "Please enter employee's first name"
+        },
+        {
+            name: "last_name",
+            type: "input",
+            message: "Please enter employee's last name"
+        },
+        {
+            name: "role",
+            type: "list",
+            message: "What is the employee' role?",
+            choices: selectRole()
+        },
+        {
+            name: "choice",
+            type: "list",
+            message: "Who is the employee's manager?",
+            choices: selectManager()
+        }
+    ]).then(function(val) {
+        const roleId = selectRole().indexOf(val.role) + 1;
+        const managerId = selectManager().indexOf(val.choice) + 1;
+        db.query("INSERT INTO employees SET ?", {
+            first_name: val.first_name,
+            last_name: val.last_name,
+            manager_id: managerId,
+            role_id: roleId
+        }, function(err) {
+            if (err) throw err
+            console.table(val)
+            startPrompt()
+        })
+    })
 };
