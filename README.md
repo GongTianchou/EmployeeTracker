@@ -1,4 +1,10 @@
 # EmployeeTracker
+<div align="center">
+ <img src="https://img.shields.io/badge/JavaScript-323330?style=flat&logo=javascript&logoColor=F7DF1E" alt="JavaScript Badge"/>
+ <img src="https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white" alt="NodeJS Badge"/>
+ <img src="https://img.shields.io/badge/Express.js-white?style=flat&logo=express&logoColor=black" alt="ExpressJS Badge"/>
+ <img src="https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white" alt="MySQL Badge"/>
+</div>
 
 # Table of contents
 1. [Description](#description)
@@ -6,8 +12,7 @@
 3. [Usage](#usage)
 4. [Video](#video)
 5. [Contributors](#contributor)
-6. [License](#license)
-7. [Questions](#questions)
+6. [Questions](#questions)
 
 ## Description
 ```
@@ -18,7 +23,7 @@ SO THAT I can organize and plan my business
 ```
 ## Installation
 
-Inquirer, and Jest, Mysql, and Console.table
+Inquirer, and Jest, Mysql, Node.js, and Console.table
 
 ## Usage
 1. npm install
@@ -31,9 +36,6 @@ Inquirer, and Jest, Mysql, and Console.table
 ## Contributor
 
 * Tianchou Gong
-
-## License
-* [MIT License](https://choosealicense.com/licenses/mit/)
 
 ## Questions
 If you have any questions about the repository contact Tianchou Gong directly at : tianchougong@gmail.com
