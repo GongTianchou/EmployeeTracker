@@ -21,10 +21,10 @@ VALUES (1, "CEO",2000000 ),
 -- Employee
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ("Tianchou", "Gong", 1, null),
-       ("Tjoe", "Gong", 2, 1),
-       ("Ivy", "Kong", 3, 3),
+       ("Tjoe", "Jones", 2, 1),
+       ("Ivy", "Johnson", 3, 3),
        ("Kathy", "Kong", 8, 1),
-       ("Amy", "Kong", 5, 4), 
+       ("Amy", "Brown", 5, 4), 
        ("Olivia", "Smith", 7, 5),
        ("Noah", "Rodriguez", 6, 1),
        ("Charlotte", "Garcia", 9, 6),
