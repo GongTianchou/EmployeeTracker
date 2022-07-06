@@ -34,7 +34,7 @@ const startPrompt = () => {
         name: 'action',
         type: 'list',
         message: 'What do you want to do?',
-        choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Update Employee Role"]
+        choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add a Role", "Add a Employee", "Update a Employee Role"]
     }]).then(function(val) {
         switch (val.action) {
             case "View All Departments":
@@ -50,19 +50,19 @@ const startPrompt = () => {
                 viewAllEmployees();
                 break;
 
-            case "Add Department":
+            case "Add a Department":
                 addDepartment();
                 break;
 
-            case "Add Role":
+            case "Add a Role":
                 addRole();
                 break;
 
-            case "Add Employee":
+            case "Add a Employee":
                 addEmployee();
                 break;
 
-            case "Update Employee Role":
+            case "Update a Employee Role":
                 updateEmployee();
         }
     });
@@ -180,7 +180,7 @@ const selectManager = () => {
 
 
 const addRole = () => {
-    figlet("ADD  ROLE", function(err, res) {
+    figlet("ADD a ROLE", function(err, res) {
         if (err) {
             console.log('Something Went Wrong, Please Try Again');
             console.dir(err);
@@ -262,4 +262,53 @@ const addEmployee = () => {
             startPrompt()
         })
     })
+};
+
+
+const updateEmployee = () => {
+    figlet("UPDATE a EMPLOYEE", function(err, res) {
+        if (err) {
+            console.log('Something Went Wrong, Please Try Again');
+            console.dir(err);
+            return;
+        }
+        console.log(res)
+    })
+    const query = `SELECT employees.last_name, roles.title FROM employees JOIN roles ON employees.role_id = roles.id`;
+    db.query(query, function(err, res) {
+        if (err) throw err
+        inquirer.prompt([{
+                name: "lastName",
+                type: "rawlist",
+                choices: function() {
+                    let lastName = [];
+                    for (var i = 0; i < res.length; i++) {
+                        lastName.push(res[i].last_name);
+                    }
+                    return lastName;
+                },
+                message: "What is the Employee's last name?",
+            },
+            {
+                name: "role",
+                type: "rawlist",
+                message: "What is the Employee's new title?",
+                choices: selectRole()
+            },
+        ]).then(function(val) {
+            let roleId = selectRole().indexOf(val.role) + 1;
+            db.query("UPDATE employees SET ? WHERE ?", [{
+                    last_name: val.lastName,
+
+                }, {
+                    role_id: roleId
+
+                }],
+                function(err) {
+                    if (err) throw err
+                    console.table(val)
+                    startPrompt()
+                })
+        });
+    });
 };
